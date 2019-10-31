@@ -6,7 +6,9 @@ import aiohttp
 import aiohttp_jinja2
 from aiohttp import web
 
-HOSTNAME = 'http://localhost:8080'
+HOSTNAME = 'http://k4m454k.hldns.ru:19100'
+# HOSTNAME = 'http://localhost:8090'
+
 
 log = logging.getLogger(__name__)
 
@@ -26,11 +28,11 @@ async def upload_file(request):
                 break
             size += len(chunk)
             f.write(chunk)
-    return aiohttp_jinja2.render_template('file.html', request, {"filename": original_filename, "link": link})
+    return web.json_response({"message": f"{HOSTNAME}/file/{newdir}"})
 
 
 async def index(request):
-    return aiohttp_jinja2.render_template('index.html', request, {})
+    return aiohttp_jinja2.render_template('index2.html', request, {"request": {"url": f"{HOSTNAME}/upload"}})
 
 
 async def get_file(request):
@@ -38,7 +40,7 @@ async def get_file(request):
     try:
         files = os.listdir(f'files/{file_id}/')
         if files:
-            return web.FileResponse(f'files/{file_id}/{files[0]}')
+            return web.FileResponse(f'files/{file_id}/{files[0]}', headers={'Content-Disposition': f'Attachment;filename={files[0]}'})
         else:
             return web.HTTPNotFound()
     except FileNotFoundError:

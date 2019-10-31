@@ -6,7 +6,6 @@ import aiohttp_jinja2
 from aiohttp import web
 from views import index, get_file, upload_file
 
-HOSTNAME = 'http://localhost:8080'
 
 async def init_app():
     app = web.Application()
@@ -25,7 +24,7 @@ def main():
     logging.basicConfig(level=logging.INFO)
 
     app = init_app()
-    web.run_app(app, port=8080)
+    web.run_app(app, port=8090)
 
 
 if __name__ == '__main__':
