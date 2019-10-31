@@ -17,6 +17,7 @@ async def upload_file(request):
     reader = await request.multipart()
     file = await reader.next()
     original_filename = file.filename
+    log.info(f"Uploading file...: {original_filename}")
     newdir = f'{str(uuid.uuid4())}'
     os.mkdir(f"files/{newdir}/")
     size = 0
@@ -28,6 +29,7 @@ async def upload_file(request):
                 break
             size += len(chunk)
             f.write(chunk)
+    log.info(f"Uploaded file: {original_filename}, Size:{size} bytes")
     return web.json_response({"message": f"{HOSTNAME}/file/{newdir}"})
 
 
