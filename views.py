@@ -28,10 +28,7 @@ async def upload_file(request):
             f.write(chunk)
     log.info(f"Uploaded file: {original_filename}, Size:{size} bytes")
     return web.json_response({
-        "message": f'<a href="{link}" class="badge badge-primary">Link to file</a>'
-        f'<hr><div><strong>File name:</strong> {original_filename}</div><br>'
-        f'<div><strong>File ID:</strong> {newdir}</div><br>'
-        f'<div><strong>File size:</strong> {sizeof_fmt(size)}</div>'
+        "uploaded_file": {"file_link": link, "file_name": original_filename, "file_id": newdir, "file_size": sizeof_fmt(size)}
     })
 
 

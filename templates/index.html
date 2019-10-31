@@ -72,7 +72,6 @@ var file_input_label = document.getElementById("file_input_label");
 
 // Function to show alerts
 function show_alert(message, alert) {
-
   alert_wrapper.innerHTML = `
     <div id="alert" class="alert alert-${alert} alert-dismissible fade show" role="alert">
       <h4><span>${message}</span><h4>
@@ -81,8 +80,28 @@ function show_alert(message, alert) {
       </button>
     </div>
   `
-
 }
+
+// Function to show file
+function show_file(uploaded_file, alert) {
+  console.log(uploaded_file);
+  console.log(alert);
+  alert_wrapper.innerHTML = `
+    <div class="card">
+        <div class="card-header">
+            Uploaded file
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">${uploaded_file.file_name}</h5>
+            <p class="card-text"><strong>Size:</strong> ${uploaded_file.file_size}</p>
+            <p class="card-text"><strong>File ID:</strong> ${uploaded_file.file_id}</p>
+            <p class="card-text"><strong>Link:</strong> ${uploaded_file.file_link}</p>
+            <a href="${uploaded_file.file_link}" class="btn btn btn-primary">Download page</a>
+        </div>
+    </div>
+  `
+}
+
 
 // Function to upload file
 function upload(url) {
@@ -157,7 +176,7 @@ function upload(url) {
 
     if (request.status == 200) {
 
-      show_alert(`${request.response.message}`, "success");
+      show_file(request.response.uploaded_file, "success");
 
     }
     else {
