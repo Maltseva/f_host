@@ -9,6 +9,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="shortcut icon" href="https://img.icons8.com/bubbles/100/000000/upload.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Upload file</title>
 </head>
 
@@ -29,7 +30,7 @@
             </div>
           </div>
 
-          <button onclick="upload('{{ request.url }}');" id="upload_btn" class="btn btn-primary">Upload</button>
+          <button onclick="upload('{{ request.url }}');" id="upload_btn" class="btn btn-primary"><i class="fa fa-upload"></i> Upload</button>
 
           <button class="btn btn-primary d-none" id="loading_btn" type="button" disabled>
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -84,8 +85,6 @@ function show_alert(message, alert) {
 
 // Function to show file
 function show_file(uploaded_file, alert) {
-  console.log(uploaded_file);
-  console.log(alert);
   alert_wrapper.innerHTML = `
     <div class="card">
         <div class="card-header">
@@ -95,11 +94,37 @@ function show_file(uploaded_file, alert) {
             <h5 class="card-title">${uploaded_file.file_name}</h5>
             <p class="card-text"><strong>Size:</strong> ${uploaded_file.file_size}</p>
             <p class="card-text"><strong>File ID:</strong> ${uploaded_file.file_id}</p>
-            <p class="card-text"><strong>Link:</strong> ${uploaded_file.file_link}</p>
+            <p class="card-text"><strong>Link:</strong> ${uploaded_file.file_link}
+              <button type="button" class="btn btn-sm btn-success" onclick="copyToClp('${uploaded_file.file_link}');"><i class="fa fa-copy"></i> Copy</button>
+            </p>
             <a href="${uploaded_file.file_link}" class="btn btn btn-primary">Download page</a>
         </div>
     </div>
   `
+}
+
+function copyToClp(txt){
+    txt = document.createTextNode(txt);
+    var m = document;
+    var w = window;
+    var b = m.body;
+    b.appendChild(txt);
+    if (b.createTextRange) {
+        var d = b.createTextRange();
+        d.moveToElementText(txt);
+        d.select();
+        m.execCommand('copy');
+    }
+    else {
+        var d = m.createRange();
+        var g = w.getSelection;
+        d.selectNodeContents(txt);
+        g().removeAllRanges();
+        g().addRange(d);
+        m.execCommand('copy');
+        g().removeAllRanges();
+    }
+    txt.remove();
 }
 
 
