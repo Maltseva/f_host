@@ -31,7 +31,11 @@ async def upload_file(request):
 
 
 async def index(request):
-    return aiohttp_jinja2.render_template('index.html', request, {"request": {"url": f"{HOSTNAME}/upload"}})
+    return aiohttp_jinja2.render_template(
+        'index.html',
+        request,
+        {"request": {"url": f"{HOSTNAME}/upload"}}
+    )
 
 
 async def get_file(request):
@@ -39,7 +43,10 @@ async def get_file(request):
     try:
         files = os.listdir(f'{STORAGE_PATH}/{file_id}/')
         if files:
-            return web.FileResponse(f'{STORAGE_PATH}/{file_id}/{files[0]}', headers={'Content-Disposition': f'Attachment;filename={files[0]}'})
+            return web.FileResponse(
+                f'{STORAGE_PATH}/{file_id}/{files[0]}',
+                headers={'Content-Disposition': f'Attachment;filename={files[0]}'}
+            )
         else:
             return web.HTTPNotFound()
     except FileNotFoundError:
