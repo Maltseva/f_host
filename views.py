@@ -5,10 +5,7 @@ import uuid
 import aiohttp
 import aiohttp_jinja2
 from aiohttp import web
-
-HOSTNAME = 'http://k4m454k.hldns.ru:19100'
-# HOSTNAME = 'http://localhost:8090'
-
+from settings import HOSTNAME, FORBIDDEN_FILE_NAMES
 
 log = logging.getLogger(__name__)
 
@@ -16,7 +13,7 @@ log = logging.getLogger(__name__)
 async def upload_file(request):
     reader = await request.multipart()
     file = await reader.next()
-    original_filename = file.filename
+    original_filename = replace_forbidden_file_name(file.filename)
     log.info(f"Uploading file...: {original_filename}")
     newdir = f'{str(uuid.uuid4())}'
     os.mkdir(f"files/{newdir}/")
@@ -30,11 +27,11 @@ async def upload_file(request):
             size += len(chunk)
             f.write(chunk)
     log.info(f"Uploaded file: {original_filename}, Size:{size} bytes")
-    return web.json_response({"message": f"{HOSTNAME}/file/{newdir}"})
+    return web.json_response({"message": link})
 
 
 async def index(request):
-    return aiohttp_jinja2.render_template('index2.html', request, {"request": {"url": f"{HOSTNAME}/upload"}})
+    return aiohttp_jinja2.render_template('index.html', request, {"request": {"url": f"{HOSTNAME}/upload"}})
 
 
 async def get_file(request):
@@ -49,3 +46,10 @@ async def get_file(request):
         return web.HTTPNotFound()
 
 
+def replace_forbidden_file_name(filename):
+    filename_without_ext = filename.split('.')[0]
+    if filename_without_ext.upper() in FORBIDDEN_FILE_NAMES:
+        log.info(f"Replacing filename {filename}")
+        return f'file-{filename}'
+    else:
+        return filename
