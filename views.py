@@ -27,7 +27,7 @@ async def upload_file(request):
             size += len(chunk)
             f.write(chunk)
     log.info(f"Uploaded file: {original_filename}, Size:{size} bytes")
-    return web.json_response({"message": link})
+    return web.json_response({"message": f'<a href="{link}" class="badge badge-primary">Link to file</a>'})
 
 
 async def index(request):
