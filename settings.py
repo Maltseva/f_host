@@ -7,3 +7,4 @@ FORBIDDEN_FILE_NAMES = [
     'LPT7', 'LPT8', 'LPT9', 'LPT10', 'LPT11', 'LPT12', 'LPT13', 'LPT14', 'LPT15', "AUX", "PRN", "NUL"
 ]
 
+STORAGE_PATH = './files'
