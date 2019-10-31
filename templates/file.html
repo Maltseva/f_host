@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="shortcut icon" href="https://img.icons8.com/bubbles/100/000000/upload.png" />
+    <title>Download file {{ file.filename }}</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="mb-3 mt-3">
+                <img class="rounded float-left" src="https://img.icons8.com/bubbles/100/000000/upload.png">
+                <h1 class="mb-3 display-1" style="font-weight: 300">Download file</h1>
+                <div class="card">
+                    <div class="card-header">
+                        Download file
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ file.filename }}</h5>
+                        <p class="card-text"><strong>Size:</strong> {{ file.size }}</p>
+                        <a href="{{ file.url }}" class="btn btn-lg btn-primary">Download</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        If required, you can
+                        <a href="{{ data.hostname }}" class="btn btn-sm btn-outline-info">Upload new file</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

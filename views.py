@@ -18,7 +18,7 @@ async def upload_file(request):
     newdir = f'{str(uuid.uuid4())}'
     os.mkdir(f"{STORAGE_PATH}/{newdir}/")
     size = 0
-    link = f'{HOSTNAME}/file/{newdir}'
+    link = f'{HOSTNAME}/file/{newdir}/p'
     with open(os.path.join(STORAGE_PATH, newdir, original_filename), 'wb') as f:
         while True:
             chunk = await file.read_chunk()
@@ -51,6 +51,25 @@ async def get_file(request):
             return web.FileResponse(
                 f'{STORAGE_PATH}/{file_id}/{files[0]}',
                 headers={'Content-Disposition': f'Attachment;filename={files[0]}'}
+            )
+        else:
+            return web.HTTPNotFound()
+    except FileNotFoundError:
+        return web.HTTPNotFound()
+
+
+async def get_file_page(request):
+    file_id = request.match_info.get('id')
+    try:
+        files = os.listdir(f'{STORAGE_PATH}/{file_id}/')
+        if files:
+            filename = files[0]
+            filesize = sizeof_fmt(os.path.getsize(f'{STORAGE_PATH}/{file_id}/{filename}'))
+            link = f'{HOSTNAME}/file/{file_id}'
+            return aiohttp_jinja2.render_template(
+                'file.html',
+                request,
+                {"file": {"url": link, "filename": filename, "size": filesize}, "data": {"hostname": HOSTNAME}}
             )
         else:
             return web.HTTPNotFound()
