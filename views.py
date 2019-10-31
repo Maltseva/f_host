@@ -27,7 +27,12 @@ async def upload_file(request):
             size += len(chunk)
             f.write(chunk)
     log.info(f"Uploaded file: {original_filename}, Size:{size} bytes")
-    return web.json_response({"message": f'<a href="{link}" class="badge badge-primary">Link to file</a>'})
+    return web.json_response({
+        "message": f'<a href="{link}" class="badge badge-primary">Link to file</a>'
+        f'<hr><div><strong>File name:</strong> {original_filename}</div><br>'
+        f'<div><strong>File ID:</strong> {newdir}</div><br>'
+        f'<div><strong>File size:</strong> {sizeof_fmt(size)}</div>'
+    })
 
 
 async def index(request):
@@ -60,3 +65,11 @@ def replace_forbidden_file_name(filename):
         return f'file-{filename}'
     else:
         return filename
+
+
+def sizeof_fmt(num, suffix='B'):
+    for unit in ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z']:
+        if abs(num) < 1024.0:
+            return "%3.1f%s%s" % (num, unit, suffix)
+        num /= 1024.0
+    return "%.1f%s%s" % (num, 'Yi', suffix)
