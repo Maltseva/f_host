@@ -25,19 +25,18 @@ async def init_app():
     return app
 
 
-def main():
+def main(configuration):
+    logging.basicConfig(level=logging.INFO)
+    pathlib.Path(configuration.storage_path).mkdir(parents=True, exist_ok=True)
+
+    app = init_app()
+    web.run_app(app, port=configuration.port)
+
+
+if __name__ == '__main__':
     arguments = get_arguments()
     config.hostname = arguments.hostname
     config.port = arguments.port
     config.storage_path = arguments.storage
     print(config)
-
-    logging.basicConfig(level=logging.INFO)
-    pathlib.Path(config.storage_path).mkdir(parents=True, exist_ok=True)
-
-    app = init_app()
-    web.run_app(app, port=config.port)
-
-
-if __name__ == '__main__':
-    main()
+    main(config)

@@ -11,7 +11,7 @@ DEFAULT_STORAGE_PATH = './files'
 DEFAULT_PORT = 8090
 
 
-class Settings:
+class Config:
     def __init__(self, hostname, port, forbidden_filenames, storage_path):
         self.hostname = hostname
         self.port = port
@@ -22,7 +22,7 @@ class Settings:
         return f"Config: \n\tHostname: {self.hostname}\n\tPort: {self.port}\n\tStorage: {self.storage_path}"
 
 
-config = Settings(
+config = Config(
     hostname=DEFAULT_HOSTNAME,
     port=DEFAULT_PORT,
     forbidden_filenames=FORBIDDEN_FILE_NAMES,

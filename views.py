@@ -50,6 +50,11 @@ async def index(request):
 
 
 async def get_file(request):
+    """
+    This function fuck you!
+    :param request:
+    :return: web.HTTP object
+    """
     file_id = request.match_info.get('id')
 
     try:

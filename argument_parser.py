@@ -3,7 +3,7 @@ from settings import config
 
 
 def get_arguments():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Simple file hosting")
     parser.add_argument(
         '-n', '--hostname', type=str, default=config.hostname,
         help=f'DNS hostname with port, default {config.hostname}'
