@@ -1,10 +1,12 @@
 import logging
+import pathlib
 
 import jinja2
 
 import aiohttp_jinja2
 from aiohttp import web
 from views import index, get_file, upload_file, get_file_page
+from settings import STORAGE_PATH
 
 
 async def init_app():
@@ -23,6 +25,7 @@ async def init_app():
 
 def main():
     logging.basicConfig(level=logging.INFO)
+    pathlib.Path(STORAGE_PATH).mkdir(parents=True, exist_ok=True)
 
     app = init_app()
     web.run_app(app, port=8090)
