@@ -14,6 +14,7 @@ Asynchronous file hosting on Python.
 ![](https://img.shields.io/badge/AioHTTP-3.6.2-blue)
 ![](https://img.shields.io/badge/aiohttp_jinja-1.2.1-blue)
 ![](https://img.shields.io/badge/Jinja2-2.10.1-blue)
+![](https://img.shields.io/badge/Bootstrap-4-blue)
 ![](https://img.shields.io/badge/version-0.0.1-yellowgreen)
 
 
