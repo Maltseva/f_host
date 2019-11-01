@@ -45,13 +45,16 @@ async def get_file(request):
     try:
         files = os.listdir(f'{STORAGE_PATH}/{file_id}/')
         if files:
+            log.info(f"Download file ID: {file_id}, Name: {files[0]}")
             return web.FileResponse(
                 f'{STORAGE_PATH}/{file_id}/{files[0]}',
                 headers={'Content-Disposition': f'Attachment;filename={files[0]}'}
             )
         else:
+            log.info(f"404 Files not found in ID: {file_id}")
             return web.HTTPNotFound()
     except FileNotFoundError:
+        log.info(f"404 for not found ID: {file_id}")
         return web.HTTPNotFound()
 
 
@@ -63,14 +66,17 @@ async def get_file_page(request):
             filename = files[0]
             filesize = sizeof_fmt(os.path.getsize(f'{STORAGE_PATH}/{file_id}/{filename}'))
             link = f'{HOSTNAME}/file/{file_id}'
+            log.info(f"Open download page for ID: {file_id} and {filename}")
             return aiohttp_jinja2.render_template(
                 'file.html',
                 request,
                 {"file": {"url": link, "filename": filename, "size": filesize}, "data": {"hostname": HOSTNAME}}
             )
         else:
+            log.info(f"404 download page not found files ID: {file_id}")
             return web.HTTPNotFound()
     except FileNotFoundError:
+        log.info(f"404 download page bad ID: {file_id}")
         return web.HTTPNotFound()
 
 
@@ -88,4 +94,4 @@ def sizeof_fmt(num, suffix='B'):
         if abs(num) < 1024.0:
             return "%3.1f%s%s" % (num, unit, suffix)
         num /= 1024.0
-    return "%.1f%s%s" % (num, 'Yi', suffix)
+    return "%.1f%s%s" % (num, 'Y', suffix)
