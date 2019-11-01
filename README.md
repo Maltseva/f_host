@@ -6,7 +6,7 @@
 
 ## Description
 
-Asynchronous file hosting on Python.
+Asynchronous file hosting on Python. Just for fun. 
 
 
 ![](https://img.shields.io/badge/Platform-windows%20%7C%20os--x%20%7C%20linux-orange)
@@ -24,6 +24,8 @@ Asynchronous file hosting on Python.
 - auto filter windows forbidden file names (CON, NUL, COM1...  etc.)
 - non blocking upload and download files
 - download page with file info
+- no control for file sizes
+
 
 ### Requirements
 
