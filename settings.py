@@ -8,3 +8,20 @@ FORBIDDEN_FILE_NAMES = [
 ]
 
 STORAGE_PATH = './files'
+DEFAULT_PORT = 8090
+
+
+class Settings:
+    def __init__(self, hostname, port, forbidden_filenames, storage_path):
+        self.hostname = hostname
+        self.port = port
+        self.forbidden_filenames = forbidden_filenames
+        self.storage_path = storage_path
+
+
+config = Settings(
+    hostname=HOSTNAME,
+    port=DEFAULT_PORT,
+    forbidden_filenames=FORBIDDEN_FILE_NAMES,
+    storage_path=STORAGE_PATH
+)

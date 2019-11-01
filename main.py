@@ -6,7 +6,8 @@ import jinja2
 import aiohttp_jinja2
 from aiohttp import web
 from views import index, get_file, upload_file, get_file_page
-from settings import STORAGE_PATH
+from argument_parser import get_arguments
+from settings import config
 
 
 async def init_app():
@@ -24,11 +25,16 @@ async def init_app():
 
 
 def main():
+    arguments = get_arguments()
+    config.hostname = arguments.hostname
+    config.port = arguments.port
+    config.storage_path = arguments.storage
+
     logging.basicConfig(level=logging.INFO)
-    pathlib.Path(STORAGE_PATH).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(config.storage_path).mkdir(parents=True, exist_ok=True)
 
     app = init_app()
-    web.run_app(app, port=8090)
+    web.run_app(app, port=config.port)
 
 
 if __name__ == '__main__':
