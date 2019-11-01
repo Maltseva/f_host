@@ -1,5 +1,5 @@
 DEFAULT_HOSTNAME = 'http://k4m454k.hldns.ru:19100'
-# HOSTNAME = 'http://localhost:8090'
+# DEFAULT_HOSTNAME = 'http://localhost:8090'
 
 FORBIDDEN_FILE_NAMES = [
     'CON', 'COM0', 'COM1', 'COM2', 'COM3', 'COM4', 'COM5', 'COM6', 'COM7', 'COM8', 'COM9', 'COM10',
