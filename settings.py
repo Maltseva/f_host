@@ -1,4 +1,4 @@
-HOSTNAME = 'http://k4m454k.hldns.ru:19100'
+DEFAULT_HOSTNAME = 'http://k4m454k.hldns.ru:19100'
 # HOSTNAME = 'http://localhost:8090'
 
 FORBIDDEN_FILE_NAMES = [
@@ -7,7 +7,7 @@ FORBIDDEN_FILE_NAMES = [
     'LPT7', 'LPT8', 'LPT9', 'LPT10', 'LPT11', 'LPT12', 'LPT13', 'LPT14', 'LPT15', "AUX", "PRN", "NUL"
 ]
 
-STORAGE_PATH = './files'
+DEFAULT_STORAGE_PATH = './files'
 DEFAULT_PORT = 8090
 
 
@@ -20,8 +20,8 @@ class Settings:
 
 
 config = Settings(
-    hostname=HOSTNAME,
+    hostname=DEFAULT_HOSTNAME,
     port=DEFAULT_PORT,
     forbidden_filenames=FORBIDDEN_FILE_NAMES,
-    storage_path=STORAGE_PATH
+    storage_path=DEFAULT_STORAGE_PATH
 )
