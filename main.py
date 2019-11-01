@@ -6,6 +6,7 @@ import jinja2
 import aiohttp_jinja2
 from aiohttp import web
 from views import index, get_file, upload_file, get_file_page
+
 from argument_parser import get_arguments
 from settings import config
 
@@ -29,6 +30,7 @@ def main():
     config.hostname = arguments.hostname
     config.port = arguments.port
     config.storage_path = arguments.storage
+    print(config)
 
     logging.basicConfig(level=logging.INFO)
     pathlib.Path(config.storage_path).mkdir(parents=True, exist_ok=True)

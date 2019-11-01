@@ -18,6 +18,9 @@ class Settings:
         self.forbidden_filenames = forbidden_filenames
         self.storage_path = storage_path
 
+    def __repr__(self):
+        return f"Config: \n\tHostname: {self.hostname}\n\tPort: {self.port}\n\tStorage: {self.storage_path}"
+
 
 config = Settings(
     hostname=DEFAULT_HOSTNAME,
