@@ -33,3 +33,16 @@ Asynchronous file hosting on Python. Just for fun.
 - AioHTTP 3.6+
 - aiohttp-jinja 1.2+
 - Jinja2 2.10+ 
+
+### Usage
+
+```sh 
+
+  -h, --help            show this help message and exit
+  -n HOSTNAME, --hostname HOSTNAME
+                        DNS hostname with port, default
+                        http://k4m454k.hldns.ru:19100
+  -p PORT, --port PORT  TCP port number. Default 8090
+  -s STORAGE, --storage STORAGE
+                        Storage path. Default ./files
+```
