@@ -9,6 +9,16 @@ from settings import config
 log = logging.getLogger(__name__)
 
 
+async def robots(request):
+    log.info("Requested robots.txt")
+    return web.FileResponse(f'robots.txt')
+
+
+async def antihack(request):
+    log.info("Antihack requested")
+    return web.json_response({"FUCKYOU": "Fuck You, Hacker =)"})
+
+
 async def upload_file(request):
     reader = await request.multipart()
     file = await reader.next()
@@ -50,11 +60,6 @@ async def index(request):
 
 
 async def get_file(request):
-    """
-    This function fuck you!
-    :param request:
-    :return: web.HTTP object
-    """
     file_id = request.match_info.get('id')
 
     try:
