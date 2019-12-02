@@ -5,7 +5,7 @@ import jinja2
 
 import aiohttp_jinja2
 from aiohttp import web
-from views import index, get_file, upload_file, get_file_page
+from views import index, get_file, upload_file, get_file_page, antihack, robots
 
 from argument_parser import get_arguments
 from settings import config
@@ -21,6 +21,9 @@ async def init_app():
     app.router.add_get('/file/{id}', get_file)
     app.router.add_get('/file/{id}/p', get_file_page)
     app.router.add_post('/upload', upload_file)
+    app.router.add_get('/phpmyadmin', antihack)
+    app.router.add_get('/phpmyadmin/index.php', antihack)
+    app.router.add_get('/robots.txt', robots)
 
     return app
 
